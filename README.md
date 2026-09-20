@@ -1,33 +1,31 @@
 # PUBG Tracker
 
-![PUBG Tracker preview](docs/images/preview-placeholder.svg)
+![PUBG Tracker tactical map](docs/images/tactical-map.png)
 
-Local web application for exploring recent PUBG matches, team statistics and
-telemetry-backed movement history on an interactive tactical map.
+Local PUBG match analyzer built around an interactive tactical map. Search a
+player, load recent matches, select a squad member and review movement,
+combat events and key statistics in one focused interface.
 
-Built with Python, the official PUBG API and a focused browser UI. Keep the
-API key on your machine, inspect a player's recent matches, then drill into
-squad performance and in-game movement.
+Built with Python, the official PUBG API and a lightweight browser UI. The
+API key stays on the local machine and is never sent to the browser.
 
 ## Features
 
 - Search a player by nickname and platform.
 - Load the latest 1–20 matches.
-- Review placement, kills, team damage and distance.
+- Review placement, kills, damage and distance for the squad.
 - Render movement, kills, knockdowns, zones and telemetry events.
-- Pan, zoom and inspect event details on the tactical map.
+- Pan, zoom and inspect events directly on the tactical map.
+- Switch between match history and squad members without leaving the map.
 - Cache map assets locally after the first request.
 - Keep the PUBG API key outside source control.
 
 ## Screenshots
 
-Safe placeholders are included until real screenshots are available:
-
 | View | Preview |
 |---|---|
 | Start screen | ![Start screen](docs/images/start-screen.png) |
 | Tactical map | ![Tactical map](docs/images/tactical-map.png) |
-| Match details | ![Match details](docs/images/match-details.png) |
 
 ## Requirements
 
@@ -71,7 +69,8 @@ directory.
 2. Select Steam, Kakao, PlayStation, Xbox or Stadia.
 3. Choose the number of recent matches.
 4. Select a match in the history panel.
-5. Select a squad member to inspect movement and events.
+5. Select a squad member to draw their route and events on the map.
+6. Use the right panel for the combat log and compact player statistics.
 
 ## Project structure
 
@@ -82,7 +81,7 @@ PUBG-tracker/
 ├── start.html             # Search screen
 ├── start.bat              # Windows launcher
 ├── requirements.txt       # Python dependencies
-├── docs/images/            # Screenshot placeholders
+├── docs/images/            # Project screenshots
 ├── maps/                  # Runtime cache, ignored by Git
 └── vers/                  # Local development archives, ignored by Git
 ```
@@ -101,8 +100,8 @@ authenticated requests to the PUBG API.
 
 ## Security
 
-- `PUBG_API_KEY` is read from the environment only.
-- Do not commit `.env` files, API keys, tokens or personal data.
+- `PUBG_API_KEY` is read from the environment or a local ignored `.env` file.
+- Never commit `.env` files, API keys, tokens or personal data.
 - Large downloaded maps and old ZIP archives are intentionally ignored.
 - Revoke and replace a key immediately if it was ever exposed.
 
