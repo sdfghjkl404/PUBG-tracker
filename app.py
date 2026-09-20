@@ -11,10 +11,19 @@ from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 from pathlib import Path
 
-# =================================================================
-# PUBG API KEY
-# =================================================================
+def load_local_env() -> None:
+    env_path = Path(__file__).with_name(".env")
+    if not env_path.is_file():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        key, separator, value = line.partition("=")
+        if separator and key.strip() and key.strip() not in os.environ:
+            os.environ[key.strip()] = value.strip().strip("\"'")
+
+
+load_local_env()
 API_KEY = os.environ.get("PUBG_API_KEY", "").strip()
+BASE_DIR = Path(__file__).resolve().parent
 
 MATCH_STORAGE = []
 MAP_NAMES = {
@@ -45,17 +54,17 @@ class PubgProxyHandler(http.server.BaseHTTPRequestHandler):
         elif parsed.path == '/fetch_image':
             q = parse_qs(parsed.query)
             mid, url = q.get('map_id', [''])[0], q.get('url', [''])[0]
-            local = Path("maps") / f"{mid}.png"
+            local = BASE_DIR / "maps" / f"{mid}.png"
             if local.exists():
                 with open(local, "rb") as f: self._send_raw(f.read(), 'image/png')
             else:
                 res = requests.get(url)
-                if not Path("maps").exists(): Path("maps").mkdir()
+                if not (BASE_DIR / "maps").exists(): (BASE_DIR / "maps").mkdir()
                 with open(local, "wb") as f: f.write(res.content)
                 self._send_raw(res.content, 'image/png')
         elif parsed.path == '/start':
             try:
-                with open("start.html", "rb") as f: self._send_raw(f.read(), 'text/html; charset=utf-8')
+                with open(BASE_DIR / "start.html", "rb") as f: self._send_raw(f.read(), 'text/html; charset=utf-8')
             except: self.send_error(404)
         else:
             if len(MATCH_STORAGE) == 0:
@@ -64,13 +73,12 @@ class PubgProxyHandler(http.server.BaseHTTPRequestHandler):
                 self.end_headers()
             else:
                 try:
-                    with open("index.html", "rb") as f: self._send_raw(f.read(), 'text/html; charset=utf-8')
+                    with open(BASE_DIR / "index.html", "rb") as f: self._send_raw(f.read(), 'text/html; charset=utf-8')
                 except: self.send_error(404)
 
     def do_POST(self):
         if self.path == '/start_analysis':
             if not API_KEY:
-                return
                 self._send_json({"success": False, "error": "PUBG_API_KEY is not configured"})
                 return
             content_length = int(self.headers['Content-Length'])
