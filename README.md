@@ -5,6 +5,10 @@
 Local web application for exploring recent PUBG matches, team statistics and
 telemetry-backed movement history on an interactive tactical map.
 
+Built with Python, the official PUBG API and a focused browser UI. Keep the
+API key on your machine, inspect a player's recent matches, then drill into
+squad performance and in-game movement.
+
 ## Features
 
 - Search a player by nickname and platform.
@@ -31,6 +35,19 @@ Safe placeholders are included until real screenshots are available:
 - A PUBG Developer API key
 - Internet access for API, telemetry and first-time map downloads
 
+## Get a PUBG API key
+
+1. Open the [official PUBG Developer Portal](https://developer.pubg.com/).
+2. Sign in with your PUBG developer account.
+3. Create an application and copy its API key.
+4. Keep the key private and configure it through the environment variable
+   shown below.
+
+The API has rate limits. Use the application responsibly and follow the
+current PUBG API terms and documentation.
+
+## Installation and configuration
+
 Install dependencies:
 
 ```powershell
@@ -44,8 +61,9 @@ $env:PUBG_API_KEY = "YOUR_PUBG_API_KEY"
 python app.py
 ```
 
-The application opens at `http://localhost:8000/start`.
-On Windows, `start.bat` launches the project from its own directory.
+Open [`http://localhost:8000/start`](http://localhost:8000/start) in your
+browser. On Windows, `start.bat` launches the application from its own
+directory.
 
 ## Usage
 
@@ -94,14 +112,9 @@ authenticated requests to the PUBG API.
 - Map assets can be large and are downloaded on first use.
 - The current server is intended for local use, not public hosting.
 
-## Roadmap
-
-- Replace placeholders with real screenshots and a demo recording.
-- Add automated tests for API parsing and telemetry rendering.
-- Add optional persistent match history.
-- Add Docker support for reproducible setup.
-
 ## License
 
-Add the license you want to use for distribution. PUBG API and game assets
-remain subject to their respective terms.
+This project is distributed under the [MIT License](LICENSE).
+
+PUBG, PUBG API and related game assets remain subject to their respective
+trademarks, copyrights and terms of use.
