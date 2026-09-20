@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local secrets
+.env
+.env.*
+*.local
+
+# Runtime and large downloaded assets
+maps/
+vers/
+*.log
+
+# IDE and local assistant configuration
+.vscode/
+.idea/
+.claude/
+.aider*
+
+# OS files
+Thumbs.db
+Desktop.ini
