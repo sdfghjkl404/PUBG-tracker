@@ -25,9 +25,9 @@ Safe placeholders are included until real screenshots are available:
 
 | View | Preview |
 |---|---|
-| Start screen | ![Start screen](docs/images/start-placeholder.svg) |
-| Tactical map | ![Tactical map](docs/images/map-placeholder.svg) |
-| Match details | ![Match details](docs/images/details-placeholder.svg) |
+| Start screen | ![Start screen](docs/images/start-screen.png) |
+| Tactical map | ![Tactical map](docs/images/tactical-map.png) |
+| Match details | ![Match details](docs/images/match-details.png) |
 
 ## Requirements
 
